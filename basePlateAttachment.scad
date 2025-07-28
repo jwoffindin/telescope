@@ -3,7 +3,9 @@ include <Round-Anything/polyround.scad>
 // include <BOSL2/drawing.scad>
 include <BOSL2/std.scad>
 
-module basePlateAttachment(holeDiameter=5) {
+MIRROR_MOUNT_SCREW=4;
+
+module basePlateAttachment(holeDiameter=MIRROR_MOUNT_SCREW) {
     radiiPoints=[
         [0, 0, 0   ],
         [0, 10, 0],
@@ -16,7 +18,7 @@ module basePlateAttachment(holeDiameter=5) {
     ];
 
     difference() {
-      translate([-20,-15,0]) 
+      translate([-20,-15,0])
         polygon(polyRound(radiiPoints,30));
       circle(d=holeDiameter);
   }
@@ -35,7 +37,7 @@ minkowski() {
         circle(d=DIAMETER);
       }
       // arc(d=DIAMETER, angle=[-10,0], thickness=5);
-      // arc(d=DIAMETER, angle=[0,10], thickness=10); 
+      // arc(d=DIAMETER, angle=[0,10], thickness=10);
     }
   }
   circle(2);

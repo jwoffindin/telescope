@@ -5,6 +5,11 @@ include <dimensions.scad>
 include <joiner.scad>
 include <basePlateAttachment.scad>
 
+
+translate([3, 22, -35]) rotate([0, 0, 180]) import("reference/metric_conversion-Leavitt_Upper_sight.stl");
+translate([160, 180, -100]) rotate([0,0,180]) import("reference/metric_conversion-LTA_Segment.stl");
+color("red") translate([-229.5, -209.9, -10]) import("reference/metric_conversion-Leavitt_Primary_cell.stl");
+
 $fn = 200; // Increase for smoother curves in the rotation
 
 
@@ -46,10 +51,10 @@ module baseWall() {
     rotate_extrude(angle = SEGMENT_ANGLE) {
         polygon(points = l_shape_profile_points);
     }
-    
-    // mirror plate attachment (WIP)
-    rotate([0,0,90+60]) translate([0, -inner_radius+37.5,0]) linear_extrude(height = LEDGE_THICKNESS) {
-      basePlateAttachment(5);
+
+    // mirror plate attachment (WIP). The rotation "60" puts
+    rotate([0,0,90+60]) translate([0, -inner_radius+30.5,0]) linear_extrude(height = LEDGE_THICKNESS) {
+      basePlateAttachment();
     }
 
 }
@@ -66,23 +71,22 @@ module segment() {
         difference() {
           baseWall();
           // right-side joiner cut-out
-          translate([MIRROR_INTERNAL_DIAMETER/2-JOINER_BUFFER, 0, 0]) rotate([0,0,-270.5]) joiner(mirror=true,fudge=0.1); 
+          translate([MIRROR_INTERNAL_DIAMETER/2-JOINER_BUFFER, 0, 0]) rotate([0,0,-270.5]) joiner(mirror=true,fudge=0.1);
         }
         // right-side joiner
         translate([MIRROR_INTERNAL_DIAMETER/2-JOINER_BUFFER, 0, 0]) rotate([0,0,-270]) {
           joinerWithScrewHole();
         }
-        
+
         // left-side joiner
         rotate([0,0,-270+120]) translate([0, -MIRROR_INTERNAL_DIAMETER/2, 0]) joinerWithScrewHole(flip=true, mirror=true);
       }
-      
-      // Cut-out truss inserts
-      truss_rotation=7;
-      rotate([0, 0, truss_rotation]) translate([MIRROR_INTERNAL_DIAMETER/2+WALL_THICKNESS, TRUSS_DIAMETER, -0.01]) truss();           
-      rotate([0, 0, 120+truss_rotation]) translate([MIRROR_INTERNAL_DIAMETER/2+WALL_THICKNESS, TRUSS_DIAMETER, -0.01]) truss();           
 
-      
+      // Cut-out truss inserts
+      truss_rotation=5;
+      rotate([0, 0, truss_rotation]) translate([MIRROR_INTERNAL_DIAMETER/2+WALL_THICKNESS+(TRUSS_DIAMETER/2), TRUSS_DIAMETER, -0.01]) truss();
+      rotate([0, 0, 120+truss_rotation]) translate([MIRROR_INTERNAL_DIAMETER/2+WALL_THICKNESS+TRUSS_DIAMETER/2, TRUSS_DIAMETER, -0.01]) truss();
+
       // Cutout entire cylinder from within to remove the straight-sides of the joiners
       translate([0, 0, LEDGE_THICKNESS+0.05]) cylinder(d=MIRROR_INTERNAL_DIAMETER+0, h=CYLINDER_HEIGHT);
     }
