@@ -6,9 +6,9 @@ include <joiner.scad>
 include <basePlateAttachment.scad>
 
 
-translate([3, 22, -35]) rotate([0, 0, 180]) import("reference/metric_conversion-Leavitt_Upper_sight.stl");
-translate([-155,-155, 0]) rotate([0,0,0]) import("reference/metric_conversion-LTA_Segment.stl");
-color("red") translate([-229.5, -209.9, -10]) import("reference/metric_conversion-Leavitt_Primary_cell.stl");
+// translate([3, 22, -35]) rotate([0, 0, 180]) import("reference/metric_conversion-Leavitt_Upper_sight.stl");
+rotate([0,0,-40]) translate([-155,-155, 0]) rotate([0,0,0]) import("reference/metric_conversion-LTA_Segment.stl");
+color("gold") translate([-229.5, -209.9, -10]) import("reference/metric_conversion-Leavitt_Primary_cell.stl");
 
 $fn = 200; // Increase for smoother curves in the rotation
 
@@ -31,9 +31,9 @@ module baseWall() {
     l_shape_profile_points = [
         // Point 1: Bottom-outer corner of the cylindrical wall (at Z=0)
         [outer_radius, 0],
-        [outer_radius+15,0],
-        [outer_radius+15,LEDGE_THICKNESS*4],
-        [outer_radius,LEDGE_THICKNESS*6],
+        [outer_radius+OUTER_LIP_DEPTH,0],
+        [outer_radius+OUTER_LIP_DEPTH,OUTER_LIP_HEIGHT],
+        [outer_radius,OUTER_LIP_HEIGHT+(OUTER_LIP_DEPTH*0.7)],
         // Point 2: Top-outer corner of the cylindrical wall
         [outer_radius, CYLINDER_HEIGHT + LEDGE_THICKNESS],
         // Point 3: Top-inner corner of the cylindrical wall
@@ -95,4 +95,4 @@ module segment() {
 //joinerWithScrewHole();
 
 
-segment();
+color("red") segment();

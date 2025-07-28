@@ -3,9 +3,12 @@
 // L-shaped extrusion properies
 MIRROR_INTERNAL_DIAMETER = 215; // Inner diameter of the cylinder (excluding wall thickness)
 WALL_THICKNESS = 5;            // Thickness of the cylinder wall
-CYLINDER_HEIGHT = 80;           // Height of the cylindrical part (vertical part of the L)
+CYLINDER_HEIGHT = 70;           // Height of the cylindrical part (vertical part of the L)
 LEDGE_THICKNESS = 5;            // Thickness of the mirror support ledge (horizontal part of the L)
 LEDGE_INTRUSION = 15;           // How far the ledge intrudes inwards from the inner wall
+
+OUTER_LIP_DEPTH = 5;
+OUTER_LIP_HEIGHT = 10;
 
 // Joiners
 JOINER_DEPTH    = 25;           // how far from z-axis the joiners stick out

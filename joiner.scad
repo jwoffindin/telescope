@@ -3,11 +3,12 @@ include <BOSL2/screws.scad>
 
 include <dimensions.scad>
 
+joinerHeatInsertDiameter=8;
 module screwInsertWithHeatInsert() {
   union() {
     cylinder(h=25, d=10); // screw shaft
     translate([0, 0, 20]) cylinder(h=15, d=5); // space for screw head
-    translate([0, 0, 30]) cylinder(h=8, d=10); // heat insert
+    translate([0, 0, 29]) cylinder(h=8, d=joinerHeatInsertDiameter); // heat insert
   }
 }
 
@@ -24,10 +25,10 @@ module joiner(flip = false, mirror = false, slice = true, fudge = 0) {
   }
 
   module slice(flip, mirror) {
-    rot = flip ? 180 : 1;
+    rot = flip ? 0 : 1;
     mir = mirror ? 1 : 0;
     translate([JOINER_WIDTH / 2, -(JOINER_DEPTH + JOINER_BUFFER) / 2, (CYLINDER_HEIGHT + LEDGE_THICKNESS) / 2])
-      rotate([-45, -45, 0])
+      rotate([-30, -30, 0])
         mirror([0, 0, mir])
           linear_extrude(height=200)
             square(200, center=true);
@@ -52,17 +53,17 @@ module joinerWithScrewHole(flip = false, mirror = false, slice = true, fudge = 0
   mountScrewDepth = JOINER_DEPTH-5;
   difference() {
     joiner(flip=flip, mirror=mirror, slice=slice, fudge=fudge);
-    translate([JOINER_WIDTH / 2, -(JOINER_DEPTH + JOINER_BUFFER) / 2, (CYLINDER_HEIGHT + LEDGE_THICKNESS) / 2]) rotate([-45, -45, 0]) translate([-5, -5, -30 + 0.05]) screwInsertWithHeatInsert();
+    translate([JOINER_WIDTH / 2, -(JOINER_DEPTH + JOINER_BUFFER) / 2 - 4, (CYLINDER_HEIGHT + LEDGE_THICKNESS) / 2 + 10]) rotate([-30, -30, 0]) translate([-5, -5, -35 + 0.05]) screwInsertWithHeatInsert();
 
-    // Screw inserts
-    translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), 20]) {
-      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
-      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
+    // Screw inserts for mounting accessories
+    translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), 15]) {
+      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m3", length=mountScrewDepth, anchor="top");
+      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m3", length=mountScrewDepth, anchor="top");
     }
 
-    translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), CYLINDER_HEIGHT-15]) {
-      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
-      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
+    translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), CYLINDER_HEIGHT-5]) {
+      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m3", length=mountScrewDepth, anchor="top");
+      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m3", length=mountScrewDepth, anchor="top");
     }
 
   }
