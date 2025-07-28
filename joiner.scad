@@ -56,13 +56,13 @@ module joinerWithScrewHole(flip = false, mirror = false, slice = true, fudge = 0
 
     // Screw inserts
     translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), 20]) {
-      translate([6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
-      translate([-6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
     }
 
     translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), CYLINDER_HEIGHT-15]) {
-      translate([6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
-      translate([-6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
     }
 
   }
