@@ -1,8 +1,8 @@
 // --- Configurable Parameters ---
 
 // L-shaped extrusion properies
-MIRROR_INTERNAL_DIAMETER = 225; // Inner diameter of the cylinder (excluding wall thickness)
-WALL_THICKNESS = 10;            // Thickness of the cylinder wall
+MIRROR_INTERNAL_DIAMETER = 215; // Inner diameter of the cylinder (excluding wall thickness)
+WALL_THICKNESS = 5;            // Thickness of the cylinder wall
 CYLINDER_HEIGHT = 120;           // Height of the cylindrical part (vertical part of the L)
 LEDGE_THICKNESS = 5;            // Thickness of the mirror support ledge (horizontal part of the L)
 LEDGE_INTRUSION = 15;           // How far the ledge intrudes inwards from the inner wall

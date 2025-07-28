@@ -49,20 +49,20 @@ module screwHole() {
 }
 
 module joinerWithScrewHole(flip = false, mirror = false, slice = true, fudge = 0) {
-  mountScrewDepth = 15;
+  mountScrewDepth = JOINER_DEPTH-5;
   difference() {
     joiner(flip=flip, mirror=mirror, slice=slice, fudge=fudge);
     translate([JOINER_WIDTH / 2, -(JOINER_DEPTH + JOINER_BUFFER) / 2, (CYLINDER_HEIGHT + LEDGE_THICKNESS) / 2]) rotate([-45, -45, 0]) translate([-5, -5, -30 + 0.05]) screwInsertWithHeatInsert();
 
     // Screw inserts
     translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), 20]) {
-      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
-      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([-6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
     }
 
     translate([JOINER_WIDTH / 2, 0 - (JOINER_DEPTH + JOINER_BUFFER), CYLINDER_HEIGHT-15]) {
-      translate([6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
-      translate([-6, 0, 0]) rotate([90, 0, 0]) screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
+      translate([-6, 0, 0]) rotate([90, 0, 0]) #screw_hole("m4", length=mountScrewDepth, anchor="top");
     }
 
   }

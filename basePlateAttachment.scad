@@ -18,8 +18,11 @@ module basePlateAttachment(holeDiameter=MIRROR_MOUNT_SCREW) {
     ];
 
     difference() {
-      translate([-20,-15,0])
-        polygon(polyRound(radiiPoints,30));
+      union() {
+        translate([-20,-15,0])
+          polygon(polyRound(radiiPoints,30));
+        circle(d=20);
+      }
       circle(d=holeDiameter);
   }
 }

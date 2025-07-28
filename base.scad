@@ -7,7 +7,7 @@ include <basePlateAttachment.scad>
 
 
 translate([3, 22, -35]) rotate([0, 0, 180]) import("reference/metric_conversion-Leavitt_Upper_sight.stl");
-translate([160, 180, -100]) rotate([0,0,180]) import("reference/metric_conversion-LTA_Segment.stl");
+translate([-155,-155, 0]) rotate([0,0,0]) import("reference/metric_conversion-LTA_Segment.stl");
 color("red") translate([-229.5, -209.9, -10]) import("reference/metric_conversion-Leavitt_Primary_cell.stl");
 
 $fn = 200; // Increase for smoother curves in the rotation
@@ -53,7 +53,7 @@ module baseWall() {
     }
 
     // mirror plate attachment (WIP). The rotation "60" puts
-    rotate([0,0,90+60]) translate([0, -inner_radius+30.5,0]) linear_extrude(height = LEDGE_THICKNESS) {
+    rotate([0,0,90+60]) translate([0, -82, 0]) linear_extrude(height = LEDGE_THICKNESS) {
       basePlateAttachment();
     }
 
