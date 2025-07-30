@@ -3,7 +3,7 @@ include <Round-Anything/polyround.scad>
 // include <BOSL2/drawing.scad>
 include <BOSL2/std.scad>
 
-MIRROR_MOUNT_SCREW=4;
+MIRROR_MOUNT_SCREW=4.2;
 
 module basePlateAttachment(holeDiameter=MIRROR_MOUNT_SCREW) {
     radiiPoints=[
