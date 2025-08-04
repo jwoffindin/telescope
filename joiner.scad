@@ -9,10 +9,10 @@ module screwInsertWithHeatInsert() {
     translate([0, 0, 38]) screw_hole("m4", length=25, anchor=TOP);
 
     // space for screw head
-    translate([0, 0, 23]) screw_hole("m8", length=25, anchor=TOP);
+    translate([0, 0, 16.5]) screw_hole("m8", length=25, anchor=TOP);
 
     // heat insert
-    translate([0, 0, 35]) screw_hole("m6", length=9, anchor=TOP, $slop=-0.025);
+    translate([0, 0, 28]) screw_hole("m6", length=9, anchor=TOP, $slop=-0.1);
   }
 }
 
@@ -73,9 +73,9 @@ module magnetSlot() {
 module joinerWithScrewHole(flip = false, mirror = false, slice = true, fudge = 0) {
   difference() {
     joiner(flip=flip, mirror=mirror, slice=slice, fudge=fudge);
-    translate([JOINER_WIDTH / 2, -JOINER_DEPTH / 2 + 2, (CYLINDER_HEIGHT + LEDGE_THICKNESS) / 2 + 10])
+    translate([JOINER_WIDTH / 2, -JOINER_DEPTH / 2 + 2, (CYLINDER_HEIGHT + LEDGE_THICKNESS) / 2 + 17])
       rotate([-30, -30, 0])
-        translate([-5, -5, -35 + 0.05])
+        translate([-12, -5, -33.5 + 0.05])
           screwInsertWithHeatInsert();
 
     // Screw inserts for mounting accessories
@@ -83,7 +83,7 @@ module joinerWithScrewHole(flip = false, mirror = false, slice = true, fudge = 0
     translate([JOINER_WIDTH / 2, 0 - JOINER_DEPTH, CYLINDER_HEIGHT-5]) mountScrews();
 
     // Magnet
-    magnetSlot();
+   // magnetSlot();
   }
 }
 

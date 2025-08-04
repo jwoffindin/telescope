@@ -11,9 +11,9 @@ OUTER_LIP_DEPTH = 5;
 OUTER_LIP_HEIGHT = 10;
 
 // Joiners
-JOINER_DEPTH    = 25;           // how far from z-axis the joiners stick out
+JOINER_DEPTH    = 28 + WALL_THICKNESS;           // how far from z-axis the joiners stick out
 JOINER_WIDTH    = 32;           // width of joiner
-JOINER_BUFFER   = 10;
+//JOINER_BUFFER   = 10;
 
 TRUSS_DIAMETER  = 12.3;        // truss diameter - 12mm with some 0.15mm tolerance each side. 12.4 is too loose.
 

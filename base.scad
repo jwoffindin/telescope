@@ -5,14 +5,14 @@ include <dimensions.scad>
 include <joiner.scad>
 include <basePlateAttachment.scad>
 
-// translate([8, 22, -40]) rotate([0, 0, 180]) import("reference/metric_conversion-Leavitt_Upper_sight.stl");
+//translate([8, 25, -40]) rotate([0, 0, 180]) import("reference/metric_conversion-Leavitt_Upper_sight.stl");
 // color("orange", 0.3) rotate([0, 0, -40]) translate([-155, -155, 0]) rotate([0, 0, 0]) import("reference/metric_conversion-LTA_Segment.stl");
 // color("orange", 0.3) rotate([0, 0, 60]) translate([-155, -155, 0]) rotate([0, 0, 0]) import("reference/metric_conversion-LTA_Segment.stl");
 // color("gold", 0.3) translate([-229.5, -209.9, -10]) import("reference/metric_conversion-Leavitt_Primary_cell.stl");
 // color("orange", 0.3) rotate([0,0, -30]) translate([-5110,-529,LEDGE_THICKNESS]) import("reference/primary-cell-new.stl");
 //translate([0, 0, -20]) cylinder(d=110, h=CYLINDER_HEIGHT);
 
-$fn = 240; // Increase for smoother curves in the rotation
+$fn = 180; // Increase for smoother curves in the rotation
 
 module baseWall() {
   // --- Calculated Parameters ---
@@ -74,11 +74,13 @@ function angle_from_center_to_edge_from_origin(object_center_distance_x, object_
 
 module placeJoiner(rotation=0, fudge=0) {
   d = MIRROR_INTERNAL_DIAMETER / 2;
-  a = angle_from_center_to_edge_from_origin(d, JOINER_WIDTH);
+  a = angle_from_center_to_edge_from_origin(d+WALL_THICKNESS, JOINER_WIDTH);
 
   rotate([0, 0, rotation+a])
-    translate([d, -JOINER_WIDTH/2, 0])
-      rotate([0,0,90]) children();
+    translate([d, 0, 0])
+      rotate([0,0,90])
+        translate([-JOINER_WIDTH/2, +5, 0])
+          children();
 }
 
 module segment() {
@@ -101,7 +103,17 @@ module segment() {
     rotate([0, 0, 120 + truss_rotation]) placedTruss();
 
     // Cutout entire cylinder from within to remove the straight-sides of the joiners
-    translate([0, 0, LEDGE_THICKNESS + 0.05]) #cylinder(d=MIRROR_INTERNAL_DIAMETER + 0, h=CYLINDER_HEIGHT);
+    translate([0, 0, LEDGE_THICKNESS + 0.05]) cylinder(d=MIRROR_INTERNAL_DIAMETER + 0, h=CYLINDER_HEIGHT);
+
+    // Do a clean cut against the clockwise end as we have some artifacts from joiner
+    // rotation which I'm not overly sure about
+    translate([0, -5, 0]) cube([MIRROR_INTERNAL_DIAMETER+JOINER_DEPTH, 5, LEDGE_THICKNESS+CYLINDER_HEIGHT]);
+
+    for (a = [30,90]) {
+      rotate([0,0,a])
+        translate([(MIRROR_INTERNAL_DIAMETER-LEDGE_INTRUSION)/2, 0, -0.1])
+          screw_hole("m4", length=LEDGE_THICKNESS+0.2, anchor="bot");
+    }
   }
 }
 
@@ -110,7 +122,7 @@ module testJoiner() {
     truss_rotation = 4.5;
 
     difference() {
-      placeJoiner() joinerWithScrewHole(mirror=true);
+      placeJoiner() joinerWithScrewHole(mirror=true, slice=true);
       rotate([0, 0, truss_rotation]) placedTruss();
     }
 }
@@ -119,8 +131,9 @@ module testJoiner() {
 
 // testJoiner();
 
-for (r = [0]) {
- rotate([0,0,r]) color("red") segment();
-}
+rotate([0,0,0]) color("red") segment();
+rotate([0,0,120]) color("blue", 0.1) segment();
+rotate([0,0,240]) color("blue", 0.1) segment();
+
 // color("orange") rotate([0,0,120]) segment();
 // color("yellow") rotate([0,0,240]) segment();
